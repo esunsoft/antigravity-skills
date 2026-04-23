@@ -1,6 +1,6 @@
 ---
 name: skill-reviewer
-description: Comprehensive quality audit for AI skills across Antigravity and Claude Code environments. Reviews structure, references, triggers, design quality, security, and cross-environment consistency against 8 engineering principles (41 rules). Use when auditing skill quality, checking for security issues, validating skill design, or reviewing skill ecosystem health. Trigger keywords - skill review, skill audit, skill quality, skill check, security audit, Skill 审查, 质量检查, 安全审查, 技能审计, Skill 评分.
+description: Comprehensive quality audit for AI skills across Antigravity and Claude Code environments. Reviews structure, references, triggers, design quality, security, and cross-environment consistency against 8 engineering principles (41 rules). Use when auditing skill quality, checking for security issues, validating skill design, or reviewing skill ecosystem health. Trigger keywords - skill review, skill audit, skill quality, skill check, Skill 审查, 质量检查, 安全审查, 技能审计, Skill 评分.
 ---
 
 # Skill Reviewer
