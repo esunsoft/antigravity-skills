@@ -1,0 +1,741 @@
+{
+  "version": "2.0.0",
+  "timestamp": "2026-04-18T23:52:59+0800",
+  "environments": [
+    {
+      "env_name": "antigravity",
+      "display_name": "Antigravity",
+      "elapsed_seconds": 2.65,
+      "summary": {
+        "total_findings": 16,
+        "severity_counts": {
+          "info": 8,
+          "medium": 4,
+          "low": 4
+        },
+        "total_recoverable_tokens": 3198,
+        "modules_checked": 7
+      },
+      "modules": [
+        {
+          "module": "config",
+          "findings": [
+            {
+              "id": "CFG-001",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "GEMINI.md 正常注入 (3198 tokens)",
+              "description": "GEMINI.md 作为全局规则注入 system prompt。 Editor 或配置文件直接管理此文件。",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "CFG-002",
+              "severity": "medium",
+              "risk_level": "yellow",
+              "title": "GEMINI.md 体积偏大 (12.5KB)",
+              "description": "GEMINI.md 当前 12.5KB (~3198 tokens)，超过 8.0KB 阈值。建议将详细规则拆分到独立 Skill 中。",
+              "impact_tokens": 3198,
+              "fix_suggestion": "精简 GEMINI.md，将具体代码模板迁移到 Skill 中。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "CFG-003",
+              "severity": "low",
+              "risk_level": "yellow",
+              "title": "GEMINI.md 与 powershell-rules 可能存在冗余",
+              "description": "检测到 GEMINI.md 中包含大量 PowerShell 规则，建议确认为何不直接使用对应 Skill。",
+              "impact_tokens": 0,
+              "fix_suggestion": "审查 GEMINI.md 中的相关章节并考虑精简。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "CFG-005",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "规则文件章节分布",
+              "description": "## 🌐 核心环境声明: ~295 tokens (9%)\n## 🔧 sqlcmd 使用规范（强制）: ~571 tokens (18%)\n## 🔀 pwsh 7 vs 5.1 编码差异（强制）: ~316 tokens (10%)\n## 🚫 SQL Server 语法禁区: ~183 tokens (6%)\n## 🔄 自改进机制（强制）: ~334 tokens (10%)\n## 🛡️ 输出长度防护（防截断）: ~516 tokens (16%)",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            }
+          ],
+          "stats": {
+            "total_size_kb": 12.5,
+            "estimated_tokens": 3198,
+            "file_count": 1,
+            "extra": {}
+          }
+        },
+        {
+          "module": "skills",
+          "findings": [
+            {
+              "id": "SKL-003",
+              "severity": "medium",
+              "risk_level": "yellow",
+              "title": "发现 1 个触发词在多个 Skill 间重叠",
+              "description": "触发词重叠可能导致 Skill 选择不稳定:\n  'modifying' → docx, pptx, xlsx",
+              "impact_tokens": 0,
+              "fix_suggestion": "为每个 Skill 设定更精确的独占触发词，减少歧义。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "SKL-006",
+              "severity": "low",
+              "risk_level": "green",
+              "title": "14 个 Skill 描述超过 200 字符",
+              "description": "过长的描述会增加 system prompt 中技能列表的 token 消耗:\n  doc-coauthoring: 428 字符\n  docx: 288 字符\n  extracting-knowledge: 241 字符\n  frontend-design: 438 字符\n  mcp-builder: 316 字符\n  parallel-agent-dispatch: 584 字符\n  pdf: 272 字符\n  pptx: 250 字符\n  receiving-code-review: 234 字符\n  self-improvement: 446 字符",
+              "impact_tokens": 0,
+              "fix_suggestion": "精简 SKILL.md 的 frontmatter description 字段，保留核心触发信息。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "SKL-007",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "Skills SKILL.md 大小排行 (Top 15/35)",
+              "description": "  powershell-rules: 19.3KB (~4935 tokens)\n  docx: 19.1KB (~4895 tokens)\n  understand-anything-understand: 17.8KB (~4546 tokens)\n  sqlserver-perf-audit: 17.5KB (~4491 tokens)\n  skill-creator: 15.8KB (~4043 tokens)\n  doc-coauthoring: 15.4KB (~3953 tokens)\n  subagent-driven-development: 12.1KB (~3091 tokens)\n  brainstorming: 10.5KB (~2686 tokens)\n  xlsx: 10.5KB (~2689 tokens)\n  systematic-debugging: 9.9KB (~2525 tokens)\n  test-driven-development: 9.9KB (~2546 tokens)\n  parallel-agent-dispatch: 9.4KB (~2397 tokens)\n  mcp-builder: 8.9KB (~2273 tokens)\n  pptx: 8.5KB (~2177 tokens)\n  pdf: 7.7KB (~1969 tokens)",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            }
+          ],
+          "stats": {
+            "total_size_kb": 265.6,
+            "estimated_tokens": 67999,
+            "file_count": 35,
+            "extra": {}
+          }
+        },
+        {
+          "module": "workflows",
+          "findings": [
+            {
+              "id": "WFL-004",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "Workflows 统计 (5 个，共 12.9KB)",
+              "description": "  superpowers-execute-plan-parallel: 5.8KB\n  superpowers-execute-plan: 3.9KB\n  superpowers-write-plan: 1.5KB\n  superpowers-brainstorm: 1.2KB\n  superpowers-reload: 0.4KB",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            }
+          ],
+          "stats": {
+            "total_size_kb": 12.9,
+            "estimated_tokens": 3311,
+            "file_count": 5,
+            "extra": {}
+          }
+        },
+        {
+          "module": "resources",
+          "findings": [
+            {
+              "id": "RES-001",
+              "severity": "medium",
+              "risk_level": "yellow",
+              "title": "发现大体积二进制资源文件",
+              "description": "大体积文件组:\n  .ttf: 54 个文件，合计 5.2MB\n  .xsd: 117 个文件，合计 2.8MB\n\n大文件 (>100KB) 前 10 个:\n  schemas\\ISO-IEC29500-4_2016\\dml-main.xsd: 148KB\n  schemas\\ISO-IEC29500-4_2016\\sml.xsd: 237KB\n  schemas\\ISO-IEC29500-4_2016\\wml.xsd: 167KB\n  schemas\\ISO-IEC29500-4_2016\\dml-main.xsd: 148KB\n  schemas\\ISO-IEC29500-4_2016\\sml.xsd: 237KB\n  schemas\\ISO-IEC29500-4_2016\\wml.xsd: 167KB\n  skills\\theme-factory\\theme-showcase.pdf: 121KB\n  schemas\\ISO-IEC29500-4_2016\\dml-main.xsd: 148KB\n  schemas\\ISO-IEC29500-4_2016\\sml.xsd: 237KB\n  schemas\\ISO-IEC29500-4_2016\\wml.xsd: 167KB",
+              "impact_tokens": 0,
+              "fix_suggestion": "审查这些文件是否为 Skill 运行所必需，不需要的可以移除。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "RES-002",
+              "severity": "medium",
+              "risk_level": "yellow",
+              "title": "发现 127 个疑似孤立资源文件",
+              "description": "以下资源文件未被同一 Skill 的代码/文档引用（前 15 个）:\n  docx\\scripts\\office\\schemas\\ecma\\fouth-edition\\opc-digSig.xsd (3KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-chartDrawing.xsd (7KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-diagram.xsd (50KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-lockedCanvas.xsd (1KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-picture.xsd (1KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-spreadsheetDrawing.xsd (9KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-wordprocessingDrawing.xsd (14KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-additionalCharacteristics.xsd (1KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-bibliography.xsd (7KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-commonSimpleTypes.xsd (6KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-customXmlDataProperties.xsd (1KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-customXmlSchemaProperties.xsd (1KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-documentPropertiesVariantTypes.xsd (7KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-math.xsd (23KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-relationshipReference.xsd (1KB)",
+              "impact_tokens": 0,
+              "fix_suggestion": "确认这些文件是否仍需保留，不需要的可以删除。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "RES-003",
+              "severity": "low",
+              "risk_level": "green",
+              "title": "发现 12 个临时/备份文件 (337.7KB)",
+              "description": "可清理的文件:\n  000003.log (0.1KB)\n  000003.log (0.1KB)\n  000003.log (0.2KB)\n  000003.log (1.2KB)\n  000003.log (161.8KB)\n  000003.log (121.0KB)\n  000003.log (20.8KB)\n  000003.log (3.3KB)\n  000003.log (27.4KB)\n  000003.log (1.1KB)",
+              "impact_tokens": 0,
+              "fix_suggestion": "删除这些临时文件。",
+              "auto_fixable": true,
+              "fix_command": "Remove-Item \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\wework_drive_report_analyzer\\scripts\\.browser_data\\Default\\Extension Rules\\000003.log\"; Remove-Item \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\wework_drive_report_analyzer\\scripts\\.browser_data\\Default\\Extension Scripts\\000003.log\"; Remove-Item \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\wework_drive_report_analyzer\\scripts\\.browser_data\\Default\\Extension State\\000003.log\"; Remove-Item \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\wework_drive_report_analyzer\\scripts\\.browser_data\\Default\\GCM Store\\000003.log\"; Remove-Item \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\wework_drive_report_analyzer\\scripts\\.browser_data\\Default\\IndexedDB\\https_doc.weixin.qq.com_0.indexeddb.leveldb\\000003.log\"; Remove-Item \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\wework_drive_report_analyzer\\scripts\\.browser_data\\Default\\IndexedDB\\https_login.work.weixin.qq.com_0.indexeddb.leveldb\\000003.log\"; Remove-Item \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\wework_drive_report_analyzer\\scripts\\.browser_data\\Default\\Local Storage\\leveldb\\000003.log\"; Remove-Item \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\wework_drive_report_analyzer\\scripts\\.browser_data\\Default\\Session Storage\\000003.log\"; Remove-Item \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\wework_drive_report_analyzer\\scripts\\.browser_data\\Default\\shared_proto_db\\000003.log\"; Remove-Item \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\wework_drive_report_analyzer\\scripts\\.browser_data\\Default\\shared_proto_db\\metadata\\000003.log\"; Remove-Item \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\wework_drive_report_analyzer\\scripts\\.browser_data\\Default\\Site Characteristics Database\\000003.log\"; Remove-Item \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\wework_drive_report_analyzer\\scripts\\.browser_data\\Default\\Sync Data\\LevelDB\\000003.log\""
+            },
+            {
+              "id": "RES-003b",
+              "severity": "low",
+              "risk_level": "green",
+              "title": "发现 5 个 __pycache__ 目录 (357KB)",
+              "description": "包含 21 个 .pyc 文件",
+              "impact_tokens": 0,
+              "fix_suggestion": "清理 __pycache__ 目录。",
+              "auto_fixable": true,
+              "fix_command": "Remove-Item -Recurse -Force \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\wework_drive_report_analyzer\\scripts\\__pycache__\"; Remove-Item -Recurse -Force \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\sqlserver-perf-audit\\scripts\\__pycache__\"; Remove-Item -Recurse -Force \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\env-health-check\\scripts\\checks\\__pycache__\"; Remove-Item -Recurse -Force \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\_archived\\sqlserver-perf-audit\\scripts\\__pycache__\"; Remove-Item -Recurse -Force \"C:\\Users\\esun\\.gemini\\antigravity\\skills\\parallel-agent-dispatch\\scripts\\__pycache__\""
+            },
+            {
+              "id": "RES-004",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "资源文件类型统计 (共 1173 个文件)",
+              "description": "  (无扩展名): 296 个, 46.9MB\n  .docx: 191 个, 8.3MB\n  .ttf: 54 个, 5.2MB\n  .xsd: 117 个, 2.8MB\n  .py: 140 个, 1.4MB\n  .md: 192 个, 1.3MB\n  .json: 6 个, 933.3KB\n  .html: 10 个, 574.4KB\n  .txt: 46 个, 449.7KB\n  .sql: 31 个, 407.0KB\n  .pyc: 21 个, 356.9KB\n  .log: 12 个, 337.7KB\n  .pdf: 1 个, 121.4KB\n  .db: 2 个, 64.0KB\n  .ps1: 5 个, 25.5KB",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            }
+          ],
+          "stats": {
+            "total_size_kb": 70827.1,
+            "estimated_tokens": 0,
+            "file_count": 1173,
+            "extra": {}
+          }
+        },
+        {
+          "module": "knowledge",
+          "findings": [
+            {
+              "id": "KNW-003",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "Knowledge Items 统计 (10 个)",
+              "description": "  dev-environment: 4.9KB - 当前 Windows 11 开发机的完整环境信息：Antigravity 终端默认 pwsh 7.6.0 (Core),...\n  dmv-large-db-strategy: 8.6KB - 针对大型 SQL Server 数据库（>50GB）使用 DMV 诊断时的安全策略和性能规避方案。核心内容：(1) dm...\n  large-sql-file-reading: 5.3KB - 在 Windows 中文环境 (GBK/936) + Antigravity 终端中读取大型或非 UTF-8 编码 SQ...\n  pb-code-restructure: 4.0KB - e:\\PB项目代码重构 项目历史。为 PowerBuilder 2022 R3 + PFC 框架的大型项目创建了完整的 ...\n  pb-refactor: 13.7KB - e:\\pb_refactor 主工作区的完整项目历史。涵盖 SQL Server 数据库优化（存储过程/函数/触发器）、...\n  pwsh7-encoding-traps: 6.7KB - PowerShell 7 (Core) 与 5.1 在文件编码行为上的关键差异，以及由此引发的 CRITICAL 级编译...\n  read-url-unicode-bug: 2.4KB - read_url_content 工具下载含 Unicode 特殊字符的文件时，字符会被系统性损坏（如 — → 鈥?, ...\n  sqlcmd-column-truncation: 3.7KB - sqlcmd 的 -y 参数默认限制可变长度列（varchar(max)/nvarchar(max)/xml）最大显示宽...\n  sqlcmd-safety-checklist: 7.7KB - 整合 5 个工作区中所有 sqlcmd 相关错误（6 个问题，占总问题 27%），形成可复用的安全操作检查清单。覆盖：参...\n  sqlserver-syntax-gotchas: 7.2KB - 整合 SQL Server 中容易被误用的语法特性和已知限制，包括：(1) 聚合函数内嵌子查询限制（SUM/COUNT ...",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            }
+          ],
+          "stats": {
+            "total_size_kb": 64.2,
+            "estimated_tokens": 0,
+            "file_count": 10,
+            "extra": {}
+          }
+        },
+        {
+          "module": "mcp",
+          "findings": [
+            {
+              "id": "MCP-003",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "已配置 1 个 MCP Server",
+              "description": "  mcp-toolbox: C:\\Users\\esun\\toolbox.exe",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            }
+          ],
+          "stats": {
+            "total_size_kb": 0.2,
+            "estimated_tokens": 0,
+            "file_count": 1,
+            "extra": {}
+          }
+        },
+        {
+          "module": "learnings",
+          "findings": [
+            {
+              "id": "LRN-003",
+              "severity": "info",
+              "risk_level": "green",
+              "title": ".learnings 统计 (2 个文件)",
+              "description": "  C:\\Users\\esun\\.gemini\\antigravity\\.learnings: 2 个文件, 8.9KB\n    ERRORS.md: 1.8KB\n    LEARNINGS.md: 7.2KB",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            }
+          ],
+          "stats": {
+            "total_size_kb": 8.9,
+            "estimated_tokens": 0,
+            "file_count": 2,
+            "extra": {}
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "env_name": "claude_cli",
+      "display_name": "Claude Code CLI",
+      "elapsed_seconds": 0.99,
+      "summary": {
+        "total_findings": 15,
+        "severity_counts": {
+          "info": 6,
+          "medium": 5,
+          "low": 4
+        },
+        "total_recoverable_tokens": 3846,
+        "modules_checked": 5
+      },
+      "modules": [
+        {
+          "module": "config",
+          "findings": [
+            {
+              "id": "CFG-001",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "CLAUDE.md 正常注入 (3846 tokens)",
+              "description": "CLAUDE.md 作为全局规则注入 system prompt。 Editor 或配置文件直接管理此文件。",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "CFG-002",
+              "severity": "medium",
+              "risk_level": "yellow",
+              "title": "CLAUDE.md 体积偏大 (15.0KB)",
+              "description": "CLAUDE.md 当前 15.0KB (~3846 tokens)，超过 12.0KB 阈值。建议将详细规则拆分到独立 Skill 中。",
+              "impact_tokens": 3846,
+              "fix_suggestion": "精简 CLAUDE.md，将具体代码模板迁移到 Skill 中。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "CFG-003",
+              "severity": "low",
+              "risk_level": "yellow",
+              "title": "CLAUDE.md 与 powershell-rules 可能存在冗余",
+              "description": "检测到 CLAUDE.md 中包含大量 PowerShell 规则，建议确认为何不直接使用对应 Skill。",
+              "impact_tokens": 0,
+              "fix_suggestion": "审查 CLAUDE.md 中的相关章节并考虑精简。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "CFG-005",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "规则文件章节分布",
+              "description": "## 🛠️ 工具调用强制规则: ~404 tokens (11%)\n## 🧠 Memory 系统使用规范: ~268 tokens (7%)\n## 🎯 Plan Mode 使用规范: ~504 tokens (13%)\n## 📋 Task 工具使用规范: ~410 tokens (11%)\n## 🤖 Agent 工具使用规范: ~476 tokens (12%)",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            }
+          ],
+          "stats": {
+            "total_size_kb": 15.0,
+            "estimated_tokens": 3846,
+            "file_count": 1,
+            "extra": {}
+          }
+        },
+        {
+          "module": "skills",
+          "findings": [
+            {
+              "id": "SKL-003",
+              "severity": "medium",
+              "risk_level": "yellow",
+              "title": "发现 3 个触发词在多个 Skill 间重叠",
+              "description": "触发词重叠可能导致 Skill 选择不稳定:\n  'modifying' → docx, pptx, xlsx\n  'pagination' → superpowers-python-automation, superpowers-rest-automation\n  'retries' → superpowers-python-automation, superpowers-rest-automation",
+              "impact_tokens": 0,
+              "fix_suggestion": "为每个 Skill 设定更精确的独占触发词，减少歧义。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "SKL-005",
+              "severity": "medium",
+              "risk_level": "yellow",
+              "title": "2 个 Skill 含 Windows 环境冲突语法",
+              "description": "以下 Skill 包含与 Windows 环境不兼容的语法:\n  webapp-testing: 使用 ```bash 代码块; 引用 /tmp/ 路径\n  xlsx: 使用 ```bash 代码块",
+              "impact_tokens": 0,
+              "fix_suggestion": "将 bash 语法替换为 PowerShell，/tmp/ 替换为 $env:TEMP。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "SKL-006",
+              "severity": "low",
+              "risk_level": "green",
+              "title": "15 个 Skill 描述超过 200 字符",
+              "description": "过长的描述会增加 system prompt 中技能列表的 token 消耗:\n  doc-coauthoring: 428 字符\n  docx: 288 字符\n  extracting-knowledge: 241 字符\n  mcp-builder: 316 字符\n  pdf: 272 字符\n  pptx: 250 字符\n  receiving-code-review: 234 字符\n  self-improvement: 446 字符\n  superpowers-python-automation: 214 字符\n  superpowers-rest-automation: 242 字符",
+              "impact_tokens": 0,
+              "fix_suggestion": "精简 SKILL.md 的 frontmatter description 字段，保留核心触发信息。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "SKL-007",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "Skills SKILL.md 大小排行 (Top 15/39)",
+              "description": "  powershell-rules: 19.3KB (~4939 tokens)\n  docx: 19.1KB (~4895 tokens)\n  understand-anything-understand: 18.7KB (~4779 tokens)\n  understand-codebase: 18.7KB (~4784 tokens)\n  skill-creator: 15.8KB (~4043 tokens)\n  doc-coauthoring: 15.4KB (~3953 tokens)\n  subagent-driven-development: 12.2KB (~3110 tokens)\n  xlsx: 10.5KB (~2684 tokens)\n  brainstorming: 10.4KB (~2674 tokens)\n  systematic-debugging: 9.9KB (~2525 tokens)\n  test-driven-development: 9.9KB (~2546 tokens)\n  mcp-builder: 8.9KB (~2273 tokens)\n  pptx: 8.5KB (~2177 tokens)\n  pdf: 7.7KB (~1969 tokens)\n  dispatching-parallel-agents: 6.4KB (~1636 tokens)",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            }
+          ],
+          "stats": {
+            "total_size_kb": 287.6,
+            "estimated_tokens": 73634,
+            "file_count": 39,
+            "extra": {}
+          }
+        },
+        {
+          "module": "resources",
+          "findings": [
+            {
+              "id": "RES-001",
+              "severity": "medium",
+              "risk_level": "yellow",
+              "title": "发现大体积二进制资源文件",
+              "description": "大体积文件组:\n  .ttf: 54 个文件，合计 5.2MB\n  .xsd: 117 个文件，合计 2.8MB\n\n大文件 (>100KB) 前 10 个:\n  schemas\\ISO-IEC29500-4_2016\\dml-main.xsd: 148KB\n  schemas\\ISO-IEC29500-4_2016\\sml.xsd: 237KB\n  schemas\\ISO-IEC29500-4_2016\\wml.xsd: 167KB\n  schemas\\ISO-IEC29500-4_2016\\dml-main.xsd: 148KB\n  schemas\\ISO-IEC29500-4_2016\\sml.xsd: 237KB\n  schemas\\ISO-IEC29500-4_2016\\wml.xsd: 167KB\n  skills\\theme-factory\\theme-showcase.pdf: 121KB\n  schemas\\ISO-IEC29500-4_2016\\dml-main.xsd: 148KB\n  schemas\\ISO-IEC29500-4_2016\\sml.xsd: 237KB\n  schemas\\ISO-IEC29500-4_2016\\wml.xsd: 167KB",
+              "impact_tokens": 0,
+              "fix_suggestion": "审查这些文件是否为 Skill 运行所必需，不需要的可以移除。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "RES-002",
+              "severity": "medium",
+              "risk_level": "yellow",
+              "title": "发现 127 个疑似孤立资源文件",
+              "description": "以下资源文件未被同一 Skill 的代码/文档引用（前 15 个）:\n  docx\\scripts\\office\\schemas\\ecma\\fouth-edition\\opc-digSig.xsd (3KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-chartDrawing.xsd (7KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-diagram.xsd (50KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-lockedCanvas.xsd (1KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-picture.xsd (1KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-spreadsheetDrawing.xsd (9KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-wordprocessingDrawing.xsd (14KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-additionalCharacteristics.xsd (1KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-bibliography.xsd (7KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-commonSimpleTypes.xsd (6KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-customXmlDataProperties.xsd (1KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-customXmlSchemaProperties.xsd (1KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-documentPropertiesVariantTypes.xsd (7KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-math.xsd (23KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-relationshipReference.xsd (1KB)",
+              "impact_tokens": 0,
+              "fix_suggestion": "确认这些文件是否仍需保留，不需要的可以删除。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "RES-003",
+              "severity": "low",
+              "risk_level": "green",
+              "title": "发现 1 个临时/备份文件 (0.1KB)",
+              "description": "可清理的文件:\n  skill-activation.log (0.1KB)",
+              "impact_tokens": 0,
+              "fix_suggestion": "删除这些临时文件。",
+              "auto_fixable": true,
+              "fix_command": "Remove-Item \"C:\\Users\\esun\\.claude\\skills\\using-superpowers\\e2e_demo\\skill-activation.log\""
+            },
+            {
+              "id": "RES-003b",
+              "severity": "low",
+              "risk_level": "green",
+              "title": "发现 1 个 __pycache__ 目录 (80KB)",
+              "description": "包含 8 个 .pyc 文件",
+              "impact_tokens": 0,
+              "fix_suggestion": "清理 __pycache__ 目录。",
+              "auto_fixable": true,
+              "fix_command": "Remove-Item -Recurse -Force \"C:\\Users\\esun\\.claude\\skills\\env-health-check\\scripts\\checks\\__pycache__\""
+            },
+            {
+              "id": "RES-004",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "资源文件类型统计 (共 477 个文件)",
+              "description": "  .ttf: 54 个, 5.2MB\n  .xsd: 117 个, 2.8MB\n  .md: 139 个, 972.5KB\n  .py: 90 个, 613.4KB\n  .txt: 45 个, 253.6KB\n  .pdf: 1 个, 121.4KB\n  .pyc: 8 个, 79.8KB\n  .html: 4 个, 78.7KB\n  .ps1: 5 个, 25.5KB\n  .gz: 1 个, 19.5KB\n  .js: 3 个, 15.0KB\n  .xml: 6 个, 11.6KB\n  .cjs: 1 个, 11.0KB\n  .dot: 1 个, 5.8KB\n  .ts: 1 个, 4.9KB",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            }
+          ],
+          "stats": {
+            "total_size_kb": 10360.1,
+            "estimated_tokens": 0,
+            "file_count": 477,
+            "extra": {}
+          }
+        },
+        {
+          "module": "mcp",
+          "findings": [
+            {
+              "id": "MCP-003",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "已配置 2 个 MCP Server",
+              "description": "  pencil: npx\n  mcp-toolbox: C:\\Users\\esun\\toolbox.exe",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            }
+          ],
+          "stats": {
+            "total_size_kb": 2.4,
+            "estimated_tokens": 0,
+            "file_count": 1,
+            "extra": {}
+          }
+        },
+        {
+          "module": "learnings",
+          "findings": [
+            {
+              "id": "LRN-003",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "未发现 .learnings 目录",
+              "description": "环境 Claude Code CLI 中没有 .learnings 目录",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            }
+          ],
+          "stats": {
+            "total_size_kb": 0.0,
+            "estimated_tokens": 0,
+            "file_count": 0,
+            "extra": {}
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "env_name": "claude_vs",
+      "display_name": "Claude Code VS Plugin",
+      "elapsed_seconds": 0.97,
+      "summary": {
+        "total_findings": 14,
+        "severity_counts": {
+          "info": 5,
+          "medium": 5,
+          "low": 4
+        },
+        "total_recoverable_tokens": 3846,
+        "modules_checked": 5
+      },
+      "modules": [
+        {
+          "module": "config",
+          "findings": [
+            {
+              "id": "CFG-001",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "CLAUDE.md 正常注入 (3846 tokens)",
+              "description": "CLAUDE.md 作为全局规则注入 system prompt。 Editor 或配置文件直接管理此文件。",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "CFG-002",
+              "severity": "medium",
+              "risk_level": "yellow",
+              "title": "CLAUDE.md 体积偏大 (15.0KB)",
+              "description": "CLAUDE.md 当前 15.0KB (~3846 tokens)，超过 12.0KB 阈值。建议将详细规则拆分到独立 Skill 中。",
+              "impact_tokens": 3846,
+              "fix_suggestion": "精简 CLAUDE.md，将具体代码模板迁移到 Skill 中。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "CFG-003",
+              "severity": "low",
+              "risk_level": "yellow",
+              "title": "CLAUDE.md 与 powershell-rules 可能存在冗余",
+              "description": "检测到 CLAUDE.md 中包含大量 PowerShell 规则，建议确认为何不直接使用对应 Skill。",
+              "impact_tokens": 0,
+              "fix_suggestion": "审查 CLAUDE.md 中的相关章节并考虑精简。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "CFG-005",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "规则文件章节分布",
+              "description": "## 🛠️ 工具调用强制规则: ~404 tokens (11%)\n## 🧠 Memory 系统使用规范: ~268 tokens (7%)\n## 🎯 Plan Mode 使用规范: ~504 tokens (13%)\n## 📋 Task 工具使用规范: ~410 tokens (11%)\n## 🤖 Agent 工具使用规范: ~476 tokens (12%)",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            }
+          ],
+          "stats": {
+            "total_size_kb": 15.0,
+            "estimated_tokens": 3846,
+            "file_count": 1,
+            "extra": {}
+          }
+        },
+        {
+          "module": "skills",
+          "findings": [
+            {
+              "id": "SKL-003",
+              "severity": "medium",
+              "risk_level": "yellow",
+              "title": "发现 3 个触发词在多个 Skill 间重叠",
+              "description": "触发词重叠可能导致 Skill 选择不稳定:\n  'modifying' → docx, pptx, xlsx\n  'pagination' → superpowers-python-automation, superpowers-rest-automation\n  'retries' → superpowers-python-automation, superpowers-rest-automation",
+              "impact_tokens": 0,
+              "fix_suggestion": "为每个 Skill 设定更精确的独占触发词，减少歧义。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "SKL-005",
+              "severity": "medium",
+              "risk_level": "yellow",
+              "title": "2 个 Skill 含 Windows 环境冲突语法",
+              "description": "以下 Skill 包含与 Windows 环境不兼容的语法:\n  webapp-testing: 使用 ```bash 代码块; 引用 /tmp/ 路径\n  xlsx: 使用 ```bash 代码块",
+              "impact_tokens": 0,
+              "fix_suggestion": "将 bash 语法替换为 PowerShell，/tmp/ 替换为 $env:TEMP。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "SKL-006",
+              "severity": "low",
+              "risk_level": "green",
+              "title": "15 个 Skill 描述超过 200 字符",
+              "description": "过长的描述会增加 system prompt 中技能列表的 token 消耗:\n  doc-coauthoring: 428 字符\n  docx: 288 字符\n  extracting-knowledge: 241 字符\n  mcp-builder: 316 字符\n  pdf: 272 字符\n  pptx: 250 字符\n  receiving-code-review: 234 字符\n  self-improvement: 446 字符\n  superpowers-python-automation: 214 字符\n  superpowers-rest-automation: 242 字符",
+              "impact_tokens": 0,
+              "fix_suggestion": "精简 SKILL.md 的 frontmatter description 字段，保留核心触发信息。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "SKL-007",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "Skills SKILL.md 大小排行 (Top 15/39)",
+              "description": "  powershell-rules: 19.3KB (~4939 tokens)\n  docx: 19.1KB (~4895 tokens)\n  understand-anything-understand: 18.7KB (~4779 tokens)\n  understand-codebase: 18.7KB (~4784 tokens)\n  skill-creator: 15.8KB (~4043 tokens)\n  doc-coauthoring: 15.4KB (~3953 tokens)\n  subagent-driven-development: 12.2KB (~3110 tokens)\n  xlsx: 10.5KB (~2684 tokens)\n  brainstorming: 10.4KB (~2674 tokens)\n  systematic-debugging: 9.9KB (~2525 tokens)\n  test-driven-development: 9.9KB (~2546 tokens)\n  mcp-builder: 8.9KB (~2273 tokens)\n  pptx: 8.5KB (~2177 tokens)\n  pdf: 7.7KB (~1969 tokens)\n  dispatching-parallel-agents: 6.4KB (~1636 tokens)",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            }
+          ],
+          "stats": {
+            "total_size_kb": 287.6,
+            "estimated_tokens": 73634,
+            "file_count": 39,
+            "extra": {}
+          }
+        },
+        {
+          "module": "resources",
+          "findings": [
+            {
+              "id": "RES-001",
+              "severity": "medium",
+              "risk_level": "yellow",
+              "title": "发现大体积二进制资源文件",
+              "description": "大体积文件组:\n  .ttf: 54 个文件，合计 5.2MB\n  .xsd: 117 个文件，合计 2.8MB\n\n大文件 (>100KB) 前 10 个:\n  schemas\\ISO-IEC29500-4_2016\\dml-main.xsd: 148KB\n  schemas\\ISO-IEC29500-4_2016\\sml.xsd: 237KB\n  schemas\\ISO-IEC29500-4_2016\\wml.xsd: 167KB\n  schemas\\ISO-IEC29500-4_2016\\dml-main.xsd: 148KB\n  schemas\\ISO-IEC29500-4_2016\\sml.xsd: 237KB\n  schemas\\ISO-IEC29500-4_2016\\wml.xsd: 167KB\n  skills\\theme-factory\\theme-showcase.pdf: 121KB\n  schemas\\ISO-IEC29500-4_2016\\dml-main.xsd: 148KB\n  schemas\\ISO-IEC29500-4_2016\\sml.xsd: 237KB\n  schemas\\ISO-IEC29500-4_2016\\wml.xsd: 167KB",
+              "impact_tokens": 0,
+              "fix_suggestion": "审查这些文件是否为 Skill 运行所必需，不需要的可以移除。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "RES-002",
+              "severity": "medium",
+              "risk_level": "yellow",
+              "title": "发现 127 个疑似孤立资源文件",
+              "description": "以下资源文件未被同一 Skill 的代码/文档引用（前 15 个）:\n  docx\\scripts\\office\\schemas\\ecma\\fouth-edition\\opc-digSig.xsd (3KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-chartDrawing.xsd (7KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-diagram.xsd (50KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-lockedCanvas.xsd (1KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-picture.xsd (1KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-spreadsheetDrawing.xsd (9KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\dml-wordprocessingDrawing.xsd (14KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-additionalCharacteristics.xsd (1KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-bibliography.xsd (7KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-commonSimpleTypes.xsd (6KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-customXmlDataProperties.xsd (1KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-customXmlSchemaProperties.xsd (1KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-documentPropertiesVariantTypes.xsd (7KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-math.xsd (23KB)\n  docx\\scripts\\office\\schemas\\ISO-IEC29500-4_2016\\shared-relationshipReference.xsd (1KB)",
+              "impact_tokens": 0,
+              "fix_suggestion": "确认这些文件是否仍需保留，不需要的可以删除。",
+              "auto_fixable": false,
+              "fix_command": null
+            },
+            {
+              "id": "RES-003",
+              "severity": "low",
+              "risk_level": "green",
+              "title": "发现 1 个临时/备份文件 (0.1KB)",
+              "description": "可清理的文件:\n  skill-activation.log (0.1KB)",
+              "impact_tokens": 0,
+              "fix_suggestion": "删除这些临时文件。",
+              "auto_fixable": true,
+              "fix_command": "Remove-Item \"C:\\Users\\esun\\.claude\\skills\\using-superpowers\\e2e_demo\\skill-activation.log\""
+            },
+            {
+              "id": "RES-003b",
+              "severity": "low",
+              "risk_level": "green",
+              "title": "发现 1 个 __pycache__ 目录 (80KB)",
+              "description": "包含 8 个 .pyc 文件",
+              "impact_tokens": 0,
+              "fix_suggestion": "清理 __pycache__ 目录。",
+              "auto_fixable": true,
+              "fix_command": "Remove-Item -Recurse -Force \"C:\\Users\\esun\\.claude\\skills\\env-health-check\\scripts\\checks\\__pycache__\""
+            },
+            {
+              "id": "RES-004",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "资源文件类型统计 (共 477 个文件)",
+              "description": "  .ttf: 54 个, 5.2MB\n  .xsd: 117 个, 2.8MB\n  .md: 139 个, 972.5KB\n  .py: 90 个, 613.4KB\n  .txt: 45 个, 253.6KB\n  .pdf: 1 个, 121.4KB\n  .pyc: 8 个, 79.8KB\n  .html: 4 个, 78.7KB\n  .ps1: 5 个, 25.5KB\n  .gz: 1 个, 19.5KB\n  .js: 3 个, 15.0KB\n  .xml: 6 个, 11.6KB\n  .cjs: 1 个, 11.0KB\n  .dot: 1 个, 5.8KB\n  .ts: 1 个, 4.9KB",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            }
+          ],
+          "stats": {
+            "total_size_kb": 10360.1,
+            "estimated_tokens": 0,
+            "file_count": 477,
+            "extra": {}
+          }
+        },
+        {
+          "module": "mcp",
+          "findings": [],
+          "stats": {
+            "total_size_kb": 0.0,
+            "estimated_tokens": 0,
+            "file_count": 0,
+            "extra": {}
+          }
+        },
+        {
+          "module": "learnings",
+          "findings": [
+            {
+              "id": "LRN-003",
+              "severity": "info",
+              "risk_level": "green",
+              "title": "未发现 .learnings 目录",
+              "description": "环境 Claude Code VS Plugin 中没有 .learnings 目录",
+              "impact_tokens": 0,
+              "fix_suggestion": "",
+              "auto_fixable": false,
+              "fix_command": null
+            }
+          ],
+          "stats": {
+            "total_size_kb": 0.0,
+            "estimated_tokens": 0,
+            "file_count": 0,
+            "extra": {}
+          }
+        }
+      ],
+      "errors": []
+    }
+  ]
+}
